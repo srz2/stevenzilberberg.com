@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&family=Roboto:wght@100;400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: rgb(241,241,241);
+    background: radial-gradient(circle, rgba(241,241,241,1) 50%, rgba(169,195,166,1) 100%);
+    text-align: center;
+}
+
+.banner {
+    font-size: 2.25em;
+    font-family: 'Roboto', sans-serif;
+}
+
+.banner > h1 {
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 50px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.gif {
+    display: flex;
+    justify-content: center;
+}
+
+article h2 {
+    margin: 10px;
+}
+
+article p {
+    margin: 15px 0;
+}
+
+footer {
+    font-size: 1.2em;
+    margin: 50px 0;
+    margin-top: 0;
+}
+
+footer a {
+    text-decoration: none;
+}
