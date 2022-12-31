@@ -29,7 +29,7 @@ The requirements for this website are as follows:
 - Expansion in features must always be a consideration
 - HTTPS hookup must function for the website
 - **MUST** contain the following either as external links or internal experiences
-  - Phase 1 (Completed: No)
+  - Phase 1 (Completed: 12/31/2022)
     - Linkedin
     - Github
     - Emailing
