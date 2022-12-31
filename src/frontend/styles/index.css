@@ -11,7 +11,7 @@ body {
 
 .title-area {
     background-color: #222222;
-    height: 400px;
+    height: 300px;
 }
 
 .title-area img {
@@ -23,20 +23,19 @@ body {
 .overlay-content {
     display: flex;
     justify-content: space-between;
-    margin-top: -150px;
     color: white;
+    margin-top: -200px;
 }
 
 .overlay-content h1 {
-    font-size: 86px;
+    font-size: 54px;
     margin-left: 20px;
-    padding-top: 40px;
+    padding-top: 120px;
 }
 
 .overlay-content ul {
     font-family: 'Cousine', monospace;
     list-style-type: none;
-    margin-top: -50px;
     margin-left: -50px;
     font-weight: 500;
 }
