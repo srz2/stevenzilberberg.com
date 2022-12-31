@@ -132,6 +132,19 @@ footer a{
     margin: 15px;
 }
 
+.message li {
+    list-style: none;
+}
+
+.message a {
+    text-decoration: none;
+}
+
+.message a:hover {
+    color: rgb(132, 132, 132);
+    transition: all 0.1s ease-in;
+}
+
 @media (max-width: 600px) {
     .overlay-content h1 {
         font-size: 24px;
