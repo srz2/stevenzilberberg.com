@@ -83,10 +83,11 @@ body {
 .link-item a {
     text-decoration: none;
     justify-items: center;
+    display: inline-block;
+    padding: 35px;
 }
 
 .link-item .fa-item {
-    margin: 20px;
     font-size: 64px;
 }
 
@@ -101,6 +102,7 @@ body {
 
 .link-item p {
     text-align: center;
+    margin-top: 15px;
 }
 
 footer {
