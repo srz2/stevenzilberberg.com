@@ -70,6 +70,7 @@ body {
 
 .link-item a {
     text-decoration: none;
+    justify-items: center;
 }
 
 .link-item img {
