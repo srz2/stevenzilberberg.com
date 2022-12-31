@@ -34,6 +34,7 @@ body {
 }
 
 .overlay-content ul {
+    font-family: 'Cousine', monospace;
     list-style-type: none;
     margin-top: -50px;
     margin-left: -50px;
