@@ -148,13 +148,25 @@ footer a{
 }
 
 @media (max-width: 600px) {
+    .title-area {
+        height: 325px;
+    }
+    .overlay-content {
+        flex-direction: column;
+    }
     .overlay-content h1 {
+        display: inline;
         font-size: 24px;
         margin: 0 auto;
         font-size: 2.6em;
     }
     .overlay-content ul {
-        display: none;
+        margin: 0;
+        margin-top: 10px;
+    }
+    .overlay-content li {
+        font-size: 14px;
+        display: inline;
     }
     .link-area {
         flex-direction: column;
