@@ -134,19 +134,19 @@ footer a{
     margin: 15px;
 }
 
-.footer .message {
+.footer .site-map-container {
     margin: 15px;
 }
 
-.message li {
+.site-map-container li {
     list-style: none;
 }
 
-.message a {
+.site-map-container a {
     text-decoration: none;
 }
 
-.message a:hover {
+.site-map-container a:hover {
     color: rgb(132, 132, 132);
     transition: all 0.1s ease-in;
 }
