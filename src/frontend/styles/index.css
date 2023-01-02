@@ -76,6 +76,10 @@ body {
     -webkit-box-shadow: -10px 1px 38px -4px rgba(99, 106, 98, 0.42);-moz-box-shadow: -10px 1px 38px -4px rgba(99, 106, 98, 0.42);
 }
 
+.link-item:hover .link-item-content * {
+    color: white;
+}
+
 .link-item:hover {
     border-color: white;
     box-shadow: 2px -2px 102px -13px rgba(255,255,255,0.68);
@@ -101,16 +105,11 @@ body {
 }
 
 .link-item a:hover{
-    color: white;
     text-shadow: 1px 0px 29px rgba(255,255,255,1);
     -webkit-transition: all 0.15s ease-in;
     -moz-transition: all 0.15s ease-in;
     -o-transition: all 0.15s ease-in;
     transition: all 0.15s ease-in;
-}
-
-.link-item .fa-item:hover{
-    color: white;
 }
 
 .link-item p {
