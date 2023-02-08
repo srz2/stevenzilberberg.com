@@ -170,6 +170,7 @@ footer a{
     .overlay-content li {
         font-size: 14px;
         display: inline;
+        margin: 12px;
     }
     .link-area {
         flex-direction: column;
