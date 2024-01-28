@@ -152,7 +152,7 @@ footer a{
 
 @media (max-width: 600px) {
     .title-area {
-        height: 325px;
+        height: 335px;
     }
     .overlay-content {
         flex-direction: column;
@@ -164,13 +164,13 @@ footer a{
         font-size: 2.6em;
     }
     .overlay-content ul {
-        margin: 0;
-        margin-top: 10px;
+        margin: 10px 0;
+        display: flex;
+        justify-content: space-evenly;
     }
     .overlay-content li {
         font-size: 14px;
         display: inline;
-        margin: 12px;
     }
     .link-area {
         flex-direction: column;
