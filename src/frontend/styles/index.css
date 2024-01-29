@@ -185,4 +185,8 @@ footer a{
         margin-left: 55%;
         font-size: 2em;
     }
+
+    .overlay-content li:hover {
+        color: #fefefe;
+    }
 }
