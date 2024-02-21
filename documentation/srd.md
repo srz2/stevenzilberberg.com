@@ -21,6 +21,7 @@ This is desired to be a personal website for general usage. The most common usec
 | Date  |  Change | Comments
 |-------|---------|---------|
 |  12/30/22     |   Initial Document Submission      |         |
+|  2/21/24      | Updated for Github integration | A projects page was created |
 
 # Software Design Requirments
 
@@ -34,11 +35,11 @@ The requirements for this website are as follows:
     - Github
     - Emailing
     - Resume View/Download
-  - Phase 2 (Completed: No)
-    - A *Blog* page with statically typed entires to talk about whatever I want
+  - Phase 2 (Completed: 2/21/2024)
     - A *Project* page to show and highlight projects that I have completed
-  - Phase 3 (Completed: No) - 
-    - Tie into Github to make a customized experience with the data from my profile
+  - Phase 3 (Completed: No)
+    - A *Blog* page with statically typed entires to talk about whatever I want
+  - Phase 4 (Completed: No) - 
     - A dynamically rendered resume section which exports to a custom layout PDF
     - Moved blog over to some sort of CMS system so pages are rendered automatically
 
@@ -51,3 +52,36 @@ The requirements for this website are as follows:
 
 ## Mobile
 <img alt="Mobile Browser Wireframe" src="./wireframes/Mobile%20Browser%20View.png" width="200" height="300">
+
+# Website Documentation and Features
+
+## Github Integration
+
+### Environment Variables
+- GITHUB_API_KEY
+
+ This is the api key to access authenticated github commands through their web api. Without it, we are limited to 60 requests per hour
+
+### Scripts
+
+- generateConfig.js
+
+This script generates a `config.json` which contains the Github Api Key. The config file will pull it from the environment variable using NodeJs and save it to the `src/frontend/js/config.json` path
+
+### github.js
+
+The actual script file for github interactions directly is used by the projects page. It will do the following:
+
+- Load the Api Key
+- Get all projects from Github using their Api service
+- From the repositories it gets back, it queries each repo to check if the `.available-for-web` file exists. If it does, it will include it in the gallery
+- From the obtained list of projects, it will sort it by last updated
+- It will then create HTML elements for the website and cache the results for up to a day
+
+### Caching mechanism
+
+There is a caching mechanism for github requests through the `localstorage`. If no cache exists, it will go out and use the Api to get the projects. This is an expensive operation. Each project requires at least 3 Api calls including the base call to get all the repos (can only load 100 at a time).
+
+The cache will be good for 1 day.
+
+If the cache exists on the page load, it will just use that instead of calling out to the web api
