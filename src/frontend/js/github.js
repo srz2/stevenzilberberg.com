@@ -130,6 +130,8 @@ async function getAndDisplayProjects() {
     } else {
         await getProjects(repos);
 
+        repos = repos.sort(x => x['updated_at'])
+
         // Add timestamp and save cache
         localStorage[KEY_CACHED_PROJECTS] = JSON.stringify({
             lastupdated: new Date(),
@@ -146,7 +148,6 @@ function clearCache(){
 }
 
 const cachedObj = localStorage[KEY_CACHED_PROJECTS];
-console.log(cachedObj)
 if (cachedObj == undefined){
     getAndDisplayProjects();
 } else {
