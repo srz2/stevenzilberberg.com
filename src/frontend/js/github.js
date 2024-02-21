@@ -7,16 +7,16 @@ var reposToDisplay = []
 
 // Get the repos from github
 async function getRepos() {
-    await repos.push('hue_alert')
-    // await fetch(github_repos)
-    // .then(data => data.json())
-    // .then(data => {
-    //     data.forEach(x => {
-    //         repos.push(x['name'])
-    //     })
-    // })
-    // .finally('Done getting repos')
-    // .catch(err => console.log('Failed to retrieve github repos', err.message));
+    // await repos.push('hue_alert')
+    await fetch(github_repos)
+    .then(data => data.json())
+    .then(data => {
+        data.forEach(x => {
+            repos.push(x['name'])
+        })
+    })
+    .finally('Done getting repos')
+    .catch(err => console.log('Failed to retrieve github repos', err.message));
 }
 
 async function getProjects(repos) {
