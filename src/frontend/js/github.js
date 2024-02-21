@@ -4,6 +4,7 @@ const github_repos = 'https://api.github.com/users/srz2/repos?per_page=100&type=
 const github_project = 'https://api.github.com/repos/srz2/{}';
 const github_project_languages = 'https://api.github.com/repos/srz2/{}/languages';
 const github_file_to_search = '/contents/.available-for-web';
+const KEY_CACHED_PROJECTS = "cached_projects";
 let github_fetch_header = {};
 var repos = []
 var reposToDisplay = []
@@ -25,7 +26,7 @@ async function getRepos() {
     .then(data => {
         data.forEach(x => repos.push(x['name']))
     })
-    .catch(err => console.log('Failed to retrieve github repos', err.message));
+    .catch(err => console.error('Failed to retrieve github repos', err.message));
 }
 
 async function getProjectLanguages(projectName){
@@ -36,9 +37,15 @@ async function getProjectLanguages(projectName){
     .then(data => {
         Object.keys(data).forEach(x => results.push(x))
     })
-    .catch(err => console.log('Failed to get languages for', projectName, err.message))
+    .catch(err => console.error('Failed to get languages for', projectName, err.message))
 
     return results;
+}
+
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
 }
 
 async function getProjectContent(projectUrl, imageUrl){
@@ -100,6 +107,9 @@ function createCardsFromRepos(){
             `
         cards.appendChild(newEl)
     }
+
+    // Remove loading message
+    loadingEl.remove();
 }
 
 function createWarning(){
@@ -111,7 +121,7 @@ function createWarning(){
     return warning
 }
 
-async function displayProjects() {
+async function getAndDisplayProjects() {
     await loadApiKey();
     await getRepos();
     if (repos.length == 0){
@@ -119,17 +129,39 @@ async function displayProjects() {
         cards.appendChild(warning);
     } else {
         await getProjects(repos);
+
+        // Add timestamp and save cache
+        localStorage[KEY_CACHED_PROJECTS] = JSON.stringify({
+            lastupdated: new Date(),
+            projects: reposToDisplay
+        });
+
+        // Create cards
         createCardsFromRepos();
     }
-
-    // Remove loading message
-    loadingEl.remove();
 }
 
-function toTitleCase(str) {
-    return str.replace(/\w\S*/g, function(txt){
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
+function clearCache(){
+    localStorage.removeItem(KEY_CACHED_PROJECTS);
 }
 
-displayProjects();
+const cachedObj = localStorage[KEY_CACHED_PROJECTS];
+console.log(cachedObj)
+if (cachedObj == undefined){
+    getAndDisplayProjects();
+} else {
+    const projects = JSON.parse(cachedObj)
+    const lastUpdated = new Date(projects['lastupdated'])
+    const now = new Date();
+    const diff = Math.abs(now - lastUpdated);
+    
+    // Cache expires every day
+    if (diff >= 86400000) {
+        console.log('Cache expired')
+        getAndDisplayProjects()
+    } else {
+        console.log('Loading from cache')
+        reposToDisplay = projects['projects']
+        createCardsFromRepos();
+    }
+}
