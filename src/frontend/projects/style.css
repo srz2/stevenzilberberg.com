@@ -94,9 +94,9 @@
     border-radius: 15px;
     font-size: 8px;
     font-weight: bold;
-    padding: 5px;
+    padding: 5px 10px;
     margin: 2px 5px;
-    width: 50px;
+    width: max-content;
     text-align: center;
 }
 
