@@ -2,6 +2,7 @@ const loadingEl = document.querySelector("#loading");
 const cards = document.querySelector('.card-container');
 const github_repos = 'https://api.github.com/users/srz2/repos?per_page=100&type=public';
 const github_project = 'https://api.github.com/repos/srz2/{}';
+const github_project_languages = 'https://api.github.com/repos/srz2/{}/languages';
 const github_file_to_search = '/contents/.available-for-web';
 let github_fetch_header = {};
 var repos = []
@@ -14,6 +15,7 @@ async function loadApiKey()
     .then(data => {
         github_fetch_header = {headers: {"Authorization": `Bearer ${data['github_api_key']}`}}
     })
+    .catch(err => console.error('Failed to get config', err));
 }
 
 // Get the repos from github
@@ -21,24 +23,35 @@ async function getRepos() {
     await fetch(github_repos, github_fetch_header)
     .then(async data => await data.json())
     .then(data => {
-        for (const x of data){
-            repos.push(x['name'])
-        }
+        data.forEach(x => repos.push(x['name']))
     })
     .catch(err => console.log('Failed to retrieve github repos', err.message));
 }
 
+async function getProjectLanguages(projectName){
+    const results = [];
+    const languageUrl = github_project_languages.replace("{}", projectName);
+    await fetch(languageUrl, github_fetch_header)
+    .then(async data => await data.json())
+    .then(data => {
+        Object.keys(data).forEach(x => results.push(x))
+    })
+    .catch(err => console.log('Failed to get languages for', projectName, err.message))
+
+    return results;
+}
+
 async function getProjectContent(projectUrl, imageUrl){
     const content = await fetch(projectUrl, github_fetch_header)
-    .then(data2 => data2.json())
-    .then(data2 => {
-        console.log(data2);
+    .then(data => data.json())
+    .then(async data => {
+        const languages = await getProjectLanguages(data['name']);
         reposToDisplay.push({
-            "name": toTitleCase(data2['name'].replaceAll("_", " ").replaceAll("-", " ")),
-            "description": data2['description'],
-            "url": data2['html_url'],
+            "name": toTitleCase(data['name'].replaceAll("_", " ").replaceAll("-", " ")),
+            "description": data['description'],
+            "url": data['html_url'],
             "image": imageUrl,
-            "language": data2['language']
+            "languages": languages
         })
     })
     .catch(err => console.error(err.message))
@@ -48,22 +61,27 @@ async function getProjectContent(projectUrl, imageUrl){
 
 async function getProject(projectUrl){
     await fetch(projectUrl + github_file_to_search, github_fetch_header)
-        .then(data => data.json())
-        .then(async data => {
-            if (data['message'] !== "Not Found"){
-                await getProjectContent(projectUrl, atob(data['content']))
-            }
-        })
+    .then(data => data.json())
+    .then(async data => {
+        if (data['message'] !== "Not Found"){
+            await getProjectContent(projectUrl, atob(data['content']))
+        }
+    })
 }
 
 async function getProjects(repos) {
+    const projectPromises = [];
+
     for (const x of repos){
         var projectUrl = github_project.replace("{}", x)
-        await getProject(projectUrl);
+        const promise = getProject(projectUrl);
+        projectPromises.push(promise);
     }
+
+    await Promise.all(projectPromises);
 }
 
-async function createCardsFromRepos(){
+function createCardsFromRepos(){
     for (const x of reposToDisplay) {
         var newEl = document.createElement("div")
         newEl.className = "card"
@@ -74,7 +92,7 @@ async function createCardsFromRepos(){
             </div>
             <div class="tech-types">
                 <ul>
-                    <li>${x['language']}</li>
+                    ${x['languages'].map(x => `<li>${x}</li>`).join("")}
                 </ul>
             </div>
             <p>${x['description']}</p>
@@ -101,7 +119,7 @@ async function displayProjects() {
         cards.appendChild(warning);
     } else {
         await getProjects(repos);
-        await createCardsFromRepos();
+        createCardsFromRepos();
     }
 
     // Remove loading message
