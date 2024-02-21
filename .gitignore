@@ -399,3 +399,6 @@ FodyWeavers.xsd
 
 # Ds_Store
 .DS_Store
+
+# Config file
+config.json
