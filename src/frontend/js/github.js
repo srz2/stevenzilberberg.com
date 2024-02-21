@@ -41,7 +41,7 @@ async function getProjects(repos) {
                 .then(data2 => {
                     console.log(data2);
                     reposToDisplay.push({
-                        "name": toTitleCase(data2['name'].replace("_", " ").replace("-", " ")),
+                        "name": toTitleCase(data2['name'].replaceAll("_", " ").replaceAll("-", " ")),
                         "description": data2['description'],
                         "url": data2['html_url'],
                         "image": atob(data['content']),
