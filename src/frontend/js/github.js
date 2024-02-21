@@ -2,14 +2,24 @@ const cards = document.querySelector('.card-container');
 const github_repos = 'https://api.github.com/users/srz2/repos';
 const github_project = 'https://api.github.com/repos/srz2/{}';
 const github_file_to_search = '/contents/.available-for-web';
+let github_fetch_header = {};
 var repos = []
 var reposToDisplay = []
+
+async function loadApiKey()
+{
+    await fetch('../js/config.json')
+    .then(async response => await response.json())
+    .then(data => {
+        github_fetch_header = {headers: {"Authorization": `Bearer ${data['github_api_key']}`}}
+    })
+}
 
 // Get the repos from github
 async function getRepos() {
     // await repos.push('hue_alert')
-    await fetch(github_repos)
     .then(data => data.json())
+    await fetch(github_repos, github_fetch_header)
     .then(data => {
         data.forEach(x => {
             repos.push(x['name'])
@@ -22,11 +32,11 @@ async function getRepos() {
 async function getProjects(repos) {
     await Promise.all(repos.map(async x => {
         var projectUrl = github_project.replace("{}", x)
-        await fetch(projectUrl + github_file_to_search)
+        await fetch(projectUrl + github_file_to_search, github_fetch_header)
         .then(data => data.json())
         .then(async data => {
             if (data['message'] !== "Not Found"){
-                await fetch(projectUrl)
+                await fetch(projectUrl, github_fetch_header)
                 .then(data2 => data2.json())
                 .then(data2 => {
                     console.log(data2);
@@ -67,6 +77,7 @@ async function createCardsFromRepos(){
 }
 
 async function displayProjects() {
+    await loadApiKey();
     await getRepos();
     if (repos.length == 0){
         const warning = document.createElement('div');
