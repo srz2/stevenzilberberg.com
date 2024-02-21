@@ -1,3 +1,4 @@
+const loadingEl = document.querySelector("#loading");
 const cards = document.querySelector('.card-container');
 const github_repos = 'https://api.github.com/users/srz2/repos';
 const github_project = 'https://api.github.com/repos/srz2/{}';
@@ -89,6 +90,7 @@ async function displayProjects() {
     } else {
         await getProjects(repos);
         await createCardsFromRepos();
+        loadingEl.remove();
     }
 }
 
