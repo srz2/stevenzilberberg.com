@@ -68,6 +68,17 @@ async function createCardsFromRepos(){
 
 async function displayProjects() {
     await getRepos();
+    if (repos.length == 0){
+        const warning = document.createElement('div');
+        warning.innerHTML = `
+        <h1 style="color: white; font-size: 14px;">Repositories Fetching failed.<br/>This likely is an API limiting issue from too many requests. Try again in an hour</h1>
+        <p style="color: white; margin-top: 14px">In the meantime, you can view my uncurated works on my <a style="color: white;" href="https://www.github.com/srz"<a>Github</a></p>
+        `;
+        cards.appendChild(warning);
+    } else {
+        await getProjects(repos);
+        await createCardsFromRepos();
+    }
 }
 
 function toTitleCase(str) {
