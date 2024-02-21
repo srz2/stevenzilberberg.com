@@ -136,6 +136,10 @@
         width: 100%;
     }
 
+    .card p {
+        font-size: 1rem;
+    }
+
     .card button {
         font-size: 20px;
         width: 200px;
