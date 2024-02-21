@@ -11,7 +11,7 @@ var reposToDisplay = []
 
 async function loadApiKey()
 {
-    await fetch('../js/config.json')
+    await fetch('js/config.json')
     .then(async response => await response.json())
     .then(data => {
         github_fetch_header = {headers: {"Authorization": `Bearer ${data['github_api_key']}`}}
