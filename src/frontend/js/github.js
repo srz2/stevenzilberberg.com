@@ -1,6 +1,6 @@
 const loadingEl = document.querySelector("#loading");
 const cards = document.querySelector('.card-container');
-const github_repos = 'https://api.github.com/users/srz2/repos';
+const github_repos = 'https://api.github.com/users/srz2/repos?per_page=100&type=public';
 const github_project = 'https://api.github.com/repos/srz2/{}';
 const github_file_to_search = '/contents/.available-for-web';
 let github_fetch_header = {};
@@ -18,45 +18,52 @@ async function loadApiKey()
 
 // Get the repos from github
 async function getRepos() {
-    // await repos.push('hue_alert')
-    .then(data => data.json())
     await fetch(github_repos, github_fetch_header)
+    .then(async data => await data.json())
     .then(data => {
-        data.forEach(x => {
+        for (const x of data){
             repos.push(x['name'])
-        })
+        }
     })
-    .finally('Done getting repos')
     .catch(err => console.log('Failed to retrieve github repos', err.message));
 }
 
-async function getProjects(repos) {
-    await Promise.all(repos.map(async x => {
-        var projectUrl = github_project.replace("{}", x)
-        await fetch(projectUrl + github_file_to_search, github_fetch_header)
+async function getProjectContent(projectUrl, imageUrl){
+    const content = await fetch(projectUrl, github_fetch_header)
+    .then(data2 => data2.json())
+    .then(data2 => {
+        console.log(data2);
+        reposToDisplay.push({
+            "name": toTitleCase(data2['name'].replaceAll("_", " ").replaceAll("-", " ")),
+            "description": data2['description'],
+            "url": data2['html_url'],
+            "image": imageUrl,
+            "language": data2['language']
+        })
+    })
+    .catch(err => console.error(err.message))
+
+    return content;
+}
+
+async function getProject(projectUrl){
+    await fetch(projectUrl + github_file_to_search, github_fetch_header)
         .then(data => data.json())
         .then(async data => {
             if (data['message'] !== "Not Found"){
-                await fetch(projectUrl, github_fetch_header)
-                .then(data2 => data2.json())
-                .then(data2 => {
-                    console.log(data2);
-                    reposToDisplay.push({
-                        "name": toTitleCase(data2['name'].replaceAll("_", " ").replaceAll("-", " ")),
-                        "description": data2['description'],
-                        "url": data2['html_url'],
-                        "image": atob(data['content']),
-                        "language": data2['language']
-                    })
-                })
+                await getProjectContent(projectUrl, atob(data['content']))
             }
         })
-    }))
+}
+
+async function getProjects(repos) {
+    for (const x of repos){
+        var projectUrl = github_project.replace("{}", x)
+        await getProject(projectUrl);
+    }
 }
 
 async function createCardsFromRepos(){
-    console.log('Repos', reposToDisplay.length)
-    console.log(reposToDisplay)
     for (const x of reposToDisplay) {
         var newEl = document.createElement("div")
         newEl.className = "card"
@@ -77,21 +84,28 @@ async function createCardsFromRepos(){
     }
 }
 
+function createWarning(){
+    const warning = document.createElement('div');
+    warning.innerHTML = `
+    <h1 style="color: white; font-size: 14px;">Repositories Fetching failed.<br/>This likely is an API limiting issue from too many requests. Try again in an hour</h1>
+    <p style="color: white; margin-top: 14px">In the meantime, you can view my uncurated works on my <a style="color: white;" href="https://www.github.com/srz"<a>Github</a></p>
+    `;
+    return warning
+}
+
 async function displayProjects() {
     await loadApiKey();
     await getRepos();
     if (repos.length == 0){
-        const warning = document.createElement('div');
-        warning.innerHTML = `
-        <h1 style="color: white; font-size: 14px;">Repositories Fetching failed.<br/>This likely is an API limiting issue from too many requests. Try again in an hour</h1>
-        <p style="color: white; margin-top: 14px">In the meantime, you can view my uncurated works on my <a style="color: white;" href="https://www.github.com/srz"<a>Github</a></p>
-        `;
+        const warning = createWarning();
         cards.appendChild(warning);
     } else {
         await getProjects(repos);
         await createCardsFromRepos();
-        loadingEl.remove();
     }
+
+    // Remove loading message
+    loadingEl.remove();
 }
 
 function toTitleCase(str) {
