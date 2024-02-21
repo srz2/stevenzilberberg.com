@@ -42,7 +42,7 @@ async function getProjects(repos) {
                 .then(data2 => {
                     console.log(data2);
                     reposToDisplay.push({
-                        "name": data2['name'],
+                        "name": toTitleCase(data2['name'].replace("_", " ").replace("-", " ")),
                         "description": data2['description'],
                         "url": data2['html_url'],
                         "image": atob(data['content']),
@@ -85,6 +85,12 @@ async function displayProjects() {
     console.log('Step 3')
     await createCardsFromRepos();
     console.log('Step 4')
+}
+
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
 }
 
 displayProjects();
