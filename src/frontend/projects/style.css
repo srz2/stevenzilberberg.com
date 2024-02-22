@@ -2,11 +2,13 @@
 
 :root {
     --green: rgba(22, 65, 40, 0.35);
+    --white: rgb(200, 200, 200);
 }
 
 .back-control {
     width: 250px;
     border: 1px solid transparent;
+    margin-left: 15px;
 }
 
 .back-control a {
@@ -15,7 +17,7 @@
 }
 
 .back-control:hover {
-    border: 1px solid white;
+    border: 1px solid var(--white);
 }
 
 .back-control i {
@@ -23,13 +25,13 @@
 }
 
 .back-control a {
-    color: white;
+    color: var(--white);
     font-weight: bold;
     text-decoration: none;
 }
 
 .back-arrow {
-    color: white;
+    color: var(--white);
 }
 
 .card-container {

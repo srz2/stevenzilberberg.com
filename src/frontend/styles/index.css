@@ -1,3 +1,7 @@
+:root {
+    --content-background-color: rgba(110, 146, 122, 0.769);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -56,7 +60,10 @@ body {
 .link-area {
     display: flex;
     justify-content: center;
-    background-color: rgba(110, 146, 122, 0.769);
+}
+
+.content {
+    background-color: var(--content-background-color)
 }
 
 .link-area a {
