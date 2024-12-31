@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+:root {
+    --green: rgba(22, 65, 40, 0.35);
+    --white: rgb(200, 200, 200);
+    --border: rgba(78, 121, 92, 0.769);
+}
+
+.back-control {
+    width: 250px;
+    border: 1px solid transparent;
+    margin-left: 15px;
+}
+
+.back-control a {
+    display: flex;
+    padding: 20px;
+}
+
+.back-control:hover {
+    border: 1px solid var(--white);
+}
+
+.back-control i {
+    margin-right: 25px;
+}
+
+.back-control a {
+    color: var(--white);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back-arrow {
+    color: var(--white);
+}
+
+main h1 {
+    margin-left: 15px;
+}
+
+main h2 {
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    margin: 0 100px;
+    margin-top: 25px;
+}
+
+.container ul {
+    font-size: .75em;
+    margin-left: 50px;
+}
+
+.container li {
+    height: 25px;
+}
+
+.container-left,
+.container-right {
+    width: 100%;
+    padding: 0 25px;
+}
+
+.container ul {
+    list-style: none;
+    margin-top: 5px;
+}
+
+.container .col-3 {
+    column-count: 3;
+}
+
+.container h2 {
+    margin: 10px;
+    margin-bottom: 25px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+}
