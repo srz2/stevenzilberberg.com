@@ -55,7 +55,7 @@ main h2 {
 
 .container ul {
     font-size: .75em;
-    margin-left: 50px;
+    margin-left: 25px;
 }
 
 .container li {
@@ -86,5 +86,10 @@ main h2 {
     .container {
         display: flex;
         flex-direction: column;
+    }
+
+    .container ul {
+        list-style: none;
+        margin-top: 5px;
     }
 }
