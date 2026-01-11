@@ -74,6 +74,7 @@ async function getProject(projectUrl){
             await getProjectContent(projectUrl, atob(data['content']))
         }
     })
+    .catch(err => console.error('Failed to get project content for', projectUrl, err.message))
 }
 
 async function getProjects(repos) {
