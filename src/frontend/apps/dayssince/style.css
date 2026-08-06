@@ -1,0 +1,298 @@
+/* Days Since app pages. The palette is the app's own: TrackerColor.blue and
+   the icon's gradient, so the page and the product read as the same thing. */
+
+:root {
+    --ds-blue: rgb(51, 130, 240);
+    --ds-blue-light: rgb(92, 153, 250);
+    --ds-blue-deep: rgb(28, 69, 158);
+    --ds-ink: rgb(28, 32, 38);
+    --ds-body: rgb(70, 78, 88);
+    --ds-muted: rgb(120, 130, 142);
+    --ds-surface: rgb(252, 252, 253);
+    --ds-card: rgb(255, 255, 255);
+    --ds-line: rgb(224, 228, 234);
+    --white: rgb(200, 200, 200);
+}
+
+/* Matches the projects page control so navigation feels the same site-wide. */
+.back-control {
+    width: 250px;
+    border: 1px solid transparent;
+    margin-left: 15px;
+}
+
+.back-control a {
+    display: flex;
+    padding: 20px;
+    color: var(--white);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back-control:hover {
+    border: 1px solid var(--white);
+}
+
+.back-control i {
+    margin-right: 25px;
+    color: var(--white);
+}
+
+.app-page {
+    background-color: var(--ds-surface);
+    color: var(--ds-body);
+    line-height: 1.6;
+}
+
+.app-page section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 25px;
+}
+
+.app-page h2 {
+    color: var(--ds-ink);
+    font-size: 1.9rem;
+    margin-bottom: 10px;
+}
+
+.app-page h3 {
+    color: var(--ds-ink);
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+}
+
+.section-lead {
+    color: var(--ds-muted);
+    max-width: 620px;
+    margin-bottom: 35px;
+}
+
+/* Hero */
+
+.app-page section.app-hero {
+    background: linear-gradient(140deg, var(--ds-blue-light) 0%, var(--ds-blue) 45%, var(--ds-blue-deep) 100%);
+    color: white;
+    text-align: center;
+    max-width: none;
+    padding: 70px 25px;
+}
+
+.app-hero img {
+    width: 128px;
+    height: 128px;
+    border-radius: 28px;
+    box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.55);
+}
+
+.app-hero h1 {
+    font-size: 3rem;
+    margin-top: 25px;
+}
+
+.app-hero .tagline {
+    font-family: 'Cousine', monospace;
+    font-size: 1.35rem;
+    margin-top: 5px;
+    opacity: 0.9;
+}
+
+.app-hero .pitch {
+    max-width: 560px;
+    margin: 25px auto 0 auto;
+    font-size: 1.05rem;
+    opacity: 0.92;
+}
+
+.badge {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 30px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+.platforms {
+    margin-top: 22px;
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.platforms i {
+    margin: 0 8px;
+    font-size: 1.1rem;
+}
+
+/* Examples */
+
+.examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin-top: 25px;
+}
+
+.examples li {
+    background-color: white;
+    border: 1px solid var(--ds-line);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+/* Features */
+
+.app-page section.features {
+    background-color: white;
+    border-top: 1px solid var(--ds-line);
+    border-bottom: 1px solid var(--ds-line);
+    max-width: none;
+}
+
+.features > div {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.feature i {
+    color: var(--ds-blue);
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+}
+
+.feature p {
+    font-size: 0.95rem;
+}
+
+/* Pricing */
+
+.plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.plan {
+    background-color: var(--ds-card);
+    border: 1px solid var(--ds-line);
+    border-radius: 14px;
+    padding: 28px;
+}
+
+.plan.premium {
+    border-color: var(--ds-blue);
+    box-shadow: 0 10px 30px -18px var(--ds-blue-deep);
+}
+
+.plan h3 {
+    font-size: 1.3rem;
+}
+
+.plan .price {
+    color: var(--ds-blue);
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.plan ul {
+    list-style: none;
+}
+
+.plan li {
+    padding: 7px 0 7px 26px;
+    position: relative;
+    font-size: 0.95rem;
+    border-top: 1px solid var(--ds-line);
+}
+
+.plan li:first-child {
+    border-top: 0;
+}
+
+.plan li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    color: var(--ds-blue);
+    font-weight: bold;
+}
+
+.plan .note {
+    margin-top: 18px;
+    font-size: 0.8rem;
+    color: var(--ds-muted);
+}
+
+/* Contact / support */
+
+.app-page section.support {
+    background-color: white;
+    border-top: 1px solid var(--ds-line);
+    max-width: none;
+}
+
+.support > div {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.support a,
+.app-page .content-link {
+    color: var(--ds-blue);
+}
+
+/* Privacy page */
+
+.legal h2 {
+    font-size: 1.4rem;
+    margin-top: 40px;
+}
+
+.legal h2:first-of-type {
+    margin-top: 20px;
+}
+
+.legal p,
+.legal li {
+    margin-top: 12px;
+}
+
+.legal ul {
+    padding-left: 22px;
+}
+
+.legal .updated {
+    color: var(--ds-muted);
+    font-size: 0.9rem;
+}
+
+.legal .summary {
+    background-color: white;
+    border-left: 4px solid var(--ds-blue);
+    border-radius: 0 8px 8px 0;
+    padding: 20px 25px;
+    margin-top: 25px;
+}
+
+@media (max-width: 600px) {
+    .app-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .app-hero .tagline {
+        font-size: 1.1rem;
+    }
+
+    .app-page section {
+        padding: 45px 20px;
+    }
+}
