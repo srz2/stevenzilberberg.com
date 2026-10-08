@@ -11,13 +11,13 @@ var reposToDisplay = []
 
 async function loadApiKey()
 {
-    // Get api key from env variable
-    const githubApiKey = process.env.GITHUB_API_KEY || null;
-    if (githubApiKey === null) {
-        console.error('GITHUB_API_KEY is not set in environment variables');
-        return;
-    }
-    github_fetch_header = {headers: {"Authorization": `Bearer ${githubApiKey}`}}
+    const settingsUri = '/.netlify/functions/fetch-data' || '/config.json';
+    await fetch(settingsUri)
+    .then(async response => await response.json())
+    .then(data => {
+        github_fetch_header = {headers: {"Authorization": `Bearer ${data['github_api_key']}`}}
+    })
+    .catch(err => console.error('Failed to get config', err));
 }
 
 // Get the repos from github
