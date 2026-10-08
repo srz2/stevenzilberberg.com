@@ -11,7 +11,7 @@ var reposToDisplay = []
 
 async function loadApiKey()
 {
-    const settingsUri = '/.netlify/functions/fetch-data' || '/config.json';
+    const settingsUri = '/.netlify/functions/fetch-github-api' || '/config.json';
     await fetch(settingsUri)
     .then(async response => await response.json())
     .then(data => {
