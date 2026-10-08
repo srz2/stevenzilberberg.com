@@ -11,12 +11,13 @@ var reposToDisplay = []
 
 async function loadApiKey()
 {
-    await fetch('../config.json')
-    .then(async response => await response.json())
-    .then(data => {
-        github_fetch_header = {headers: {"Authorization": `Bearer ${data['github_api_key']}`}}
-    })
-    .catch(err => console.error('Failed to get config', err));
+    // Get api key from env variable
+    const githubApiKey = process.env.GITHUB_API_KEY || null;
+    if (githubApiKey === null) {
+        console.error('GITHUB_API_KEY is not set in environment variables');
+        return;
+    }
+    github_fetch_header = {headers: {"Authorization": `Bearer ${githubApiKey}`}}
 }
 
 // Get the repos from github
